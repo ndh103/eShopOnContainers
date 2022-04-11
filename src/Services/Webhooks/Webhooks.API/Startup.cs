@@ -12,7 +12,7 @@ public class Startup
     public IServiceProvider ConfigureServices(IServiceCollection services)
     {
         services
-            .AddAppInsight(Configuration)
+            // .AddAppInsight(Configuration)
             .AddCustomRouting(Configuration)
             .AddCustomDbContext(Configuration)
             .AddSwagger(Configuration)
