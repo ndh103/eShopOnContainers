@@ -33,6 +33,7 @@ services:
       - "6379:6379"
     volumes:
       - eshop-basketdata:/data
+
   rabbitmq:
     ports:
       - "15672:15672"
@@ -173,12 +174,12 @@ services:
     ports:
       - "5113:80"
 
-  mobileshoppingapigw:
-    volumes:
-      - ./ApiGateways/Envoy/config/mobileshopping:/etc/envoy
-    ports:
-    - "5200:80"
-    - "15200:8001"
+  # mobileshoppingapigw:
+  #   volumes:
+  #     - ./ApiGateways/Envoy/config/mobileshopping:/etc/envoy
+  #   ports:
+  #   - "5200:80"
+  #   - "15200:8001"
 
   webshoppingapigw:
     volumes:
@@ -187,24 +188,24 @@ services:
     - "5202:80"
     - "15202:8001"
 
-  mobileshoppingagg:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - urls__basket=http://basket-api
-      - urls__catalog=http://catalog-api
-      - urls__orders=http://ordering-api
-      - urls__identity=http://identity-api
-      - urls__grpcBasket=http://basket-api:81
-      - urls__grpcCatalog=http://catalog-api:81
-      - urls__grpcOrdering=http://ordering-api:81
-      - CatalogUrlHC=http://catalog-api/hc
-      - OrderingUrlHC=http://ordering-api/hc
-      - IdentityUrlHC=http://identity-api/hc
-      - BasketUrlHC=http://basket-api/hc
-      - PaymentUrlHC=http://payment-api/hc
-      - IdentityUrlExternal=http://${ESHOP_EXTERNAL_DNS_NAME_OR_IP}:5105
-    ports:
-      - "5120:80"
+  # mobileshoppingagg:
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - urls__basket=http://basket-api
+  #     - urls__catalog=http://catalog-api
+  #     - urls__orders=http://ordering-api
+  #     - urls__identity=http://identity-api
+  #     - urls__grpcBasket=http://basket-api:81
+  #     - urls__grpcCatalog=http://catalog-api:81
+  #     - urls__grpcOrdering=http://ordering-api:81
+  #     - CatalogUrlHC=http://catalog-api/hc
+  #     - OrderingUrlHC=http://ordering-api/hc
+  #     - IdentityUrlHC=http://identity-api/hc
+  #     - BasketUrlHC=http://basket-api/hc
+  #     - PaymentUrlHC=http://payment-api/hc
+  #     - IdentityUrlExternal=http://${ESHOP_EXTERNAL_DNS_NAME_OR_IP}:5105
+  #   ports:
+  #     - "5120:80"
 
   webshoppingagg:
     environment:
@@ -284,20 +285,20 @@ services:
     ports:
       - "5104:80"
 
-  webmvc:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://0.0.0.0:80
-      - PurchaseUrl=http://webshoppingapigw
-      - IdentityUrl=http://${ESHOP_EXTERNAL_DNS_NAME_OR_IP}:5105
-      - SignalrHubUrl=http://${ESHOP_EXTERNAL_DNS_NAME_OR_IP}:5202
-      - IdentityUrlHC=http://identity-api/hc
-      - UseCustomizationData=True
-      - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
-      - OrchestratorType=${ORCHESTRATOR_TYPE}
-      - UseLoadTest=${USE_LOADTEST:-False}
-    ports:
-      - "5100:80"
+  # webmvc:
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_URLS=http://0.0.0.0:80
+  #     - PurchaseUrl=http://webshoppingapigw
+  #     - IdentityUrl=http://${ESHOP_EXTERNAL_DNS_NAME_OR_IP}:5105
+  #     - SignalrHubUrl=http://${ESHOP_EXTERNAL_DNS_NAME_OR_IP}:5202
+  #     - IdentityUrlHC=http://identity-api/hc
+  #     - UseCustomizationData=True
+  #     - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
+  #     - OrchestratorType=${ORCHESTRATOR_TYPE}
+  #     - UseLoadTest=${USE_LOADTEST:-False}
+  #   ports:
+  #     - "5100:80"
 
   webhooks-client:
     environment:
